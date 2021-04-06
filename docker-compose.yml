@@ -1,0 +1,17 @@
+version: "3"
+services:
+  frontend:
+    build: ./inventory-web
+    image: "com.enigma/inventory-web"
+  backend:
+    build: ./inventory-api
+    image: "com.enigma/inventory-api"
+    restart: on-failure
+    environment:
+      - DB_HOST=172.17.0.1
+  reverse-proxy:
+    build: ./reverse-proxy
+    image: "com.enigma/reverse-proxy"
+    restart: on-failure
+    ports:
+      - "80:80"
